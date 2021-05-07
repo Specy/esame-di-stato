@@ -1,7 +1,9 @@
 import React, { Component, useRef, useState } from 'react'
 import "./MainPage.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faCheck, faTimes, faFilter } from '@fortawesome/free-solid-svg-icons'
+import NavBar from "./NavBar"
+import RestaurantPreview from "./RestaurantPreview"
 class MainPage extends Component {
     constructor(props) {
         super(props)
@@ -20,7 +22,31 @@ class MainPage extends Component {
                 surname: "",
                 address: ""
             },
-            step: "login"
+            step: "login",
+            search : "",
+            restaurants: [
+                {
+                    name: "Farina & Co",
+                    src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+                    tags: ["Pizzeria","Panificio"]
+                },{
+                    name: "Sushi Maya",
+                    src: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1190&q=80",
+                    tags: ["Sushi"]
+                },{
+                    name: "Morrison",
+                    src: "https://images.unsplash.com/photo-1496930666207-e76e8253a950?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                    tags: ["Pub","Bar"]
+                },{
+                    name: "McDonald's",
+                    src: "https://images.unsplash.com/photo-1616696269320-a4b68a57b1c1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+                    tags: ["Ristorante","Panineria"]
+                },{
+                    name :"La Tana",
+                    src: "https://images.unsplash.com/photo-1594179047502-07fb8a5451f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
+                    tags: ["Pizzeria", "Ristorante"]
+                }
+            ]
         }
     }
     handleInput = (obj) => {
@@ -31,11 +57,42 @@ class MainPage extends Component {
             step: step
         })
     }
+    search = (newSearch) => {
+        this.setState({
+            search: newSearch
+        })
+    }
     render() {
-        const { step, user} = this.state
+        const { step, user, restaurants} = this.state
         return <div className="main-page">
             <div className="left-page">
-
+                <NavBar 
+                    placeholder="Cerca un ristorante"
+                    search={this.search}
+                />
+                <div className="left-page-top-container">
+                    <div>
+                        Un ristorante, un ordine, è tutto ciò che ti serve.
+                    </div>
+                </div>
+                <div className="title-and-filter">
+                    <div className="big-text">
+                        Ristoranti 
+                    </div>
+                    <div className="filter-wrapper">
+                        Filtra
+                        <FontAwesomeIcon icon={faFilter} />
+                    </div>
+                </div>
+                <div className="restaurants-wrapper">
+                    {restaurants.map(restaurant => {
+                        return <RestaurantPreview 
+                            key={restaurant.name}
+                            data={restaurant}
+                        />
+                    })}
+                    
+                </div>
             </div>
             <div className="right-page">
                 <div className="row center-y space-between">
@@ -120,6 +177,8 @@ class MainPage extends Component {
     }
 }
 
+
+
 function InputEl(props) {
     const { objKey, value, sendChange } = props
     const [valid, changeValidity] = useState(false)
@@ -146,7 +205,7 @@ function InputEl(props) {
             value={inputValue}
             ref={ref}
             onInput={update}
-            placeholder={objKey}
+            placeholder={capitalize(objKey)}
             onBlur={updateParent}
         />
         <FontAwesomeIcon
@@ -156,5 +215,8 @@ function InputEl(props) {
     </div>
 }
 
-
+function capitalize(string) 
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 export default MainPage

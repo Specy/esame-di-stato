@@ -31,6 +31,59 @@
     border-radius: 0.5rem;
     box-shadow: 1px 1px 5px rgba(0, 0,10, 0.25);
 }
+.restaurants-wrapper{
+    display: grid;
+    margin-top: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.restaurant-tags svg{
+    margin-right: 0.3rem;
+}
+.restaurant-preview{
+    border-radius: 1rem;
+    min-height: 3rem;
+    background-color: var(--light-gray);
+    position: relative;
+    height: 8rem;
+    overflow: hidden;
+    transition: 0.2s all;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(0, 0,10, 0.25);
+}
+.restaurant-preview:hover{
+    transform: scale(0.98);
+}
+.restaurant-preview img{
+    width: 100%;
+    top: -50%;
+    position: absolute;
+    filter: brightness(0.8);
+}   
+.restaurant-name{
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    font-size: 2rem;
+    color: white;
+    z-index: 2;
+    text-shadow: 0px 0px 8px black;
+}
+.restaurant-tags{
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    color: white;
+    z-index: 2;
+    font-size: 0.8rem;
+    text-shadow: 0px 0px 8px black;
+}
+.login-btn:hover{
+    filter: brightness(1.05);
+}
+.register-btn:hover{
+    filter: brightness(1.15);
+}
 .valid{
     color: var(--green);
 }

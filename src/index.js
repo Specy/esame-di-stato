@@ -4,6 +4,9 @@ import './index.css';
 import MainPage from './Components/MainPage';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+
+
 const getBasename = path => path.substr(0, path.lastIndexOf('/'));
 let baseName = getBasename(window.location.pathname).replace("//", "/")
 class Index extends Component{

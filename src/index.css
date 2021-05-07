@@ -1,5 +1,5 @@
 :root{
-  --primary: #F6B179;
+  --primary: #87CEFA ;
   --light-gray: #F1F6F9;
   --dark-blue: #264653;
   --green: #2A9D8F;
@@ -16,6 +16,7 @@
   padding: 0;
   margin: 0;
   outline: none;
+  box-sizing: border-box;
 }
 button{
   cursor: pointer;
@@ -52,6 +53,7 @@ body, html{
   border-radius: 2.5rem;
   overflow: hidden;
   box-shadow: 2px 2px 8px 2px rgba(0, 0, 10, 0.25);
+ 
 }
 .big-text{
   font-size: 1.5rem;
@@ -80,7 +82,84 @@ body, html{
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 2rem;
+  position: relative;
+  overflow: auto;
+}
+.menu-wrapper{
+  border-radius: 100rem;
+  background-color: var(--light-gray);
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  align-items: center;
+  width: calc(40%);
+  height: 2.5rem;
+  padding-left: 1rem;
+  margin-left: 0.2rem;
+  overflow: hidden;
+}
+.title-and-filter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.filter-wrapper{
+  min-width: 8rem;
+  border-radius: 100rem;
+  background-color: var(--dark-blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 0.4rem 0.8rem ;
+}
+.menu-input-wrapper{
+  display: flex;
+  flex: 1;
+  height: 100%;
+  padding: 0.4rem 0;
+  background-color: #BBD1EA;
+  align-items: center;
+  font-size: 1.2rem;
+  border-left: solid var(--dark-blue) 1px;
+  margin-left: 3rem;
+  padding-right: 1rem;
+}
+.left-page-top-container{
+  width: 100%;
+  margin-top: 4.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 1rem;
+  background-color: #08AEEA;
+  background-image: linear-gradient(90deg, #08AEEA 0%, #1de48b 100%);
+  box-shadow: 1px 1px 5px rgba(0, 0,10, 0.25);
+  text-shadow: 0px 0px 4px black;
+  font-size: 2rem;
+  color: white;
+  min-height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-input{
+  height: 1.5rem;
+  width: 100%;
+  background-color: transparent;
+  font-size: 0.9rem;
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+}
+.menu-input::placeholder{
+  color: var(--dark-blue);
+}
+.menu-logo{
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+.menu-logo div{
+  margin-left: 1rem;
 }
 #root{
   padding: 7vh;
@@ -91,7 +170,24 @@ body, html{
 
 }
 
-*{
-  box-sizing: border-box;
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--light-gray)
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

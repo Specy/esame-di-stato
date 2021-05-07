@@ -1,0 +1,97 @@
+:root{
+  --primary: #F6B179;
+  --light-gray: #F1F6F9;
+  --dark-blue: #264653;
+  --green: #2A9D8F;
+  --red: #ff0033;
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+}
+*{
+  font-family: Roboto;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+button{
+  cursor: pointer;
+}
+body, html{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  color: #303030;
+}
+.rounded-btn{
+  border-radius: 100rem;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+}
+.center-x{
+  justify-content: center;
+}
+.center-y{
+  align-items: center;
+}
+.pages-wrapper{
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  box-shadow: 2px 2px 8px 2px rgba(0, 0, 10, 0.25);
+}
+.big-text{
+  font-size: 1.5rem;
+
+}
+.space-between{
+  justify-content: space-between;
+}
+.medium-text{
+  font-size: 1.2rem;
+}
+.normal-text{
+  font-size: 1rem;
+}
+.small-text{
+  font-size: 0.8rem;
+}
+.right-page{
+  width: 23%;
+  background-color: var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+.left-page{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+#root{
+  padding: 7vh;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--primary);
+
+}
+
+*{
+  box-sizing: border-box;
+}
+

@@ -21,19 +21,19 @@ class NavBar extends Component{
     render(){
         const {props} = this
         return <>
-                <div className="menu-wrapper">
-                    <div className="menu-logo">
+                <div className="navbar-wrapper">
+                    <div className="navbar-logo">
                         <FontAwesomeIcon icon={faBars}/>
                         <div>
                             Site Name
                         </div>
                     </div>
-                    <div className="menu-input-wrapper">
+                    <div className="navbar-input-wrapper">
                         <input 
                             value={this.state.searchValue}
                             ref={this.ref}
                             onChange={this.handleChange}
-                            className="menu-input"
+                            className="navbar-input"
                             placeholder={props.placeholder}
                         />
                         <FontAwesomeIcon 

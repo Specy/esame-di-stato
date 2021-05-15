@@ -24,6 +24,116 @@
     padding: 0.4rem;
     
 }
+.blur-filter{
+    position: fixed;
+    height: 100%;
+    background-color: rgba(0, 0,10, 0.4);
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.restaurant-floating-data{
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: 60vh;
+    padding: 1rem;
+    overflow-y: scroll;
+    top: 20vh;
+    background-color: var(--layer2);
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1rem;
+}
+.floating-restaurant-title{
+    width: 100%;
+    text-align: left;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;  
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    min-height: 5rem;
+}
+.floating-restaurant-title div{
+    position: absolute;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    right: 1rem;
+    color: white;
+    z-index: 2;
+    text-shadow: 0px 0px 8px black;
+}
+.floating-restaurant-title img{
+    width: 100%;
+    top: -50%;
+    position: absolute;
+    filter: brightness(0.8);
+}
+.floating-restaurant-address{
+    display: flex;
+    justify-content: space-between;
+}
+.menu-wrapper{
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 0.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.visit-btn{
+    background-color: var(--green);
+    border-radius: 999rem;
+    color: white;
+    padding: 0.5rem 0.8rem;
+}
+.menu-row-category{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.5rem;
+}
+.menu-row-category div{
+    margin-left: 1rem;
+}
+.menu-row-wrapper{
+    background-color: var(--layer3);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.rotate-0{
+    transition: all 0.5s;
+    transform: rotate(0deg);
+}
+.rotate-90{
+    transform: rotate(90deg);
+    transition: all 0.5s;
+}
+.menu-food-row{
+    padding: 0.2rem 2rem;
+    border-bottom: solid 1px gray;
+}
+.food-wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+.menu-food-row:last-child{
+    border: none ;
+}
+.floating-restaurant-menu{
+    display: flex;
+    flex: 1;
+}
 .input-wrapper{
     background-color: white;
     width: fit-content;

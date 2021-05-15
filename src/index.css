@@ -4,6 +4,10 @@
   --dark-blue: #264653;
   --green: #2A9D8F;
   --red: #ff0033;
+  --layer2:#d9dde0;
+  --layer3:#c1c5c7;
+  --layer4:#a9acae;
+  --layer5:#919495;
 }
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @font-face {
@@ -50,13 +54,15 @@ body, html{
   background-color: white;
   width: 100%;
   height: 100%;
-  border-radius: 2.5rem;
   overflow: hidden;
   box-shadow: 2px 2px 8px 2px rgba(0, 0, 10, 0.25);
  
 }
+.box-shadow{
+  box-shadow: 2px 2px 8px 2px rgba(0, 0, 10, 0.25);
+}
 .big-text{
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 
 }
 .space-between{
@@ -86,9 +92,9 @@ body, html{
   position: relative;
   overflow: auto;
 }
-.menu-wrapper{
+.navbar-wrapper{
   border-radius: 100rem;
-  background-color: var(--light-gray);
+  background-color: var(--layer2);
   display: flex;
   flex-direction: row;
   position: fixed;
@@ -103,6 +109,7 @@ body, html{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 .filter-wrapper{
   min-width: 8rem;
@@ -114,12 +121,11 @@ body, html{
   color: white;
   padding: 0.4rem 0.8rem ;
 }
-.menu-input-wrapper{
+.navbar-input-wrapper{
   display: flex;
   flex: 1;
   height: 100%;
   padding: 0.4rem 0;
-  background-color: #BBD1EA;
   align-items: center;
   font-size: 1.2rem;
   border-left: solid var(--dark-blue) 1px;
@@ -142,7 +148,7 @@ body, html{
   justify-content: center;
   align-items: center;
 }
-.menu-input{
+.navbar-input{
   height: 1.5rem;
   width: 100%;
   background-color: transparent;
@@ -150,19 +156,44 @@ body, html{
   margin-left: 1.5rem;
   padding-left: 1rem;
 }
-.menu-input::placeholder{
+.navbar-input::placeholder{
   color: var(--dark-blue);
 }
-.menu-logo{
+.scale-expand{
+  transform: scale(1);
+  transition: all 0.2s;
+  opacity: 1;
+}
+.scale-close{
+  transform: scale(0);
+  transition: all 0.2s;
+  opacity: 0;
+  z-index: -1;
+}
+.visible{
+  display: flex !important;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+.hidden{
+  display: none !important;
+}
+.navbar-logo{
   font-size: 1.2rem;
   display: flex;
   align-items: center;
 }
-.menu-logo div{
+.navbar-logo div{
   margin-left: 1rem;
 }
 #root{
-  padding: 7vh;
   display: flex;
   width: 100%;
   height: 100vh;
@@ -173,7 +204,7 @@ body, html{
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */

@@ -4,12 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCheck, faTimes, faFilter } from '@fortawesome/free-solid-svg-icons'
 import NavBar from "./NavBar"
 import RestaurantPreview from "./RestaurantPreview"
+import { RestaurantPreviewCard } from "./utils"
+import { FaMapMarkerAlt } from 'react-icons/fa'
+import {matchSorter} from 'match-sorter'
+import Menu from './Menu'
 class MainPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user:{
+            user: {
                 name: "Nome Utente"
+            },
+            restaurantPreview: {
+                visible: false,
+                ...new RestaurantPreviewCard()
             },
             login: {
                 email: "",
@@ -23,34 +31,17 @@ class MainPage extends Component {
                 address: ""
             },
             step: "login",
-            search : "",
+            search: "",
             restaurants: [
-                {
-                    name: "Farina & Co",
-                    src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-                    tags: ["Pizzeria","Panificio"]
-                },{
-                    name: "Sushi Maya",
-                    src: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1190&q=80",
-                    tags: ["Sushi"]
-                },{
-                    name: "Morrison",
-                    src: "https://images.unsplash.com/photo-1496930666207-e76e8253a950?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    tags: ["Pub","Bar"]
-                },{
-                    name: "McDonald's",
-                    src: "https://images.unsplash.com/photo-1616696269320-a4b68a57b1c1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-                    tags: ["Ristorante","Panineria"]
-                },{
-                    name :"La Tana",
-                    src: "https://images.unsplash.com/photo-1594179047502-07fb8a5451f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
-                    tags: ["Pizzeria", "Ristorante"]
-                }
+                new RestaurantPreviewCard(),
+                new RestaurantPreviewCard(),
+                new RestaurantPreviewCard(),
+                new RestaurantPreviewCard(),
+                new RestaurantPreviewCard(),
             ]
         }
     }
     handleInput = (obj) => {
-        console.log(obj)
     }
     changeStep = (step) => {
         this.setState({
@@ -58,15 +49,69 @@ class MainPage extends Component {
         })
     }
     search = (newSearch) => {
+        let sort = matchSorter(
+            this.state.restaurants,
+            newSearch,{keys:["name","tags"],
+            threshold:matchSorter.rankings.NO_MATCH}
+        )
         this.setState({
-            search: newSearch
+            search: newSearch,
+            restaurants:sort
+        })
+    }
+    selectRestaurantPreview = (restaurant) =>{
+        this.setState({
+            restaurantPreview:{
+                visible:true,
+                ...restaurant
+            }
+        })
+    }
+    hideRestaurantPreview = () =>{
+        let preview = this.state.restaurantPreview
+        preview.visible = false
+        this.setState({
+            restaurantPreview: preview
         })
     }
     render() {
-        const { step, user, restaurants} = this.state
+        const { step, user, restaurants, restaurantPreview } = this.state
         return <div className="main-page">
+            <div className={'blur-filter ' + (restaurantPreview.visible ? "scale-expand" : "scale-close")}>
+            <div className={"restaurant-floating-data box-shadow "}>
+                <div className='floating-restaurant-title'>
+                    <div>
+                        {restaurantPreview.name}
+                    </div>
+                    <img src={restaurantPreview.src} />
+                </div>
+
+                <div className='floating-restaurant-address'>
+                    <div>
+                        <FaMapMarkerAlt /> {restaurantPreview.address}
+                    </div>
+
+                    <button 
+                        className='visit-btn' 
+                        style={{backgroundColor: 'var(--dark-blue)'}}
+                        onClick={this.hideRestaurantPreview}
+                    >
+                            Chiudi
+                    </button>
+                </div>
+                <div>
+                    {restaurantPreview.description}
+                </div>
+                <Menu data={restaurantPreview}>
+
+                </Menu>
+                <button className='visit-btn'>Visita</button>
+            </div>
+            </div>
+
+
             <div className="left-page">
-                <NavBar 
+                <NavBar
                     placeholder="Cerca un ristorante"
                     search={this.search}
                 />
@@ -77,7 +122,7 @@ class MainPage extends Component {
                 </div>
                 <div className="title-and-filter">
                     <div className="big-text">
-                        Ristoranti 
+                        Ristoranti
                     </div>
                     <div className="filter-wrapper">
                         Filtra
@@ -86,12 +131,13 @@ class MainPage extends Component {
                 </div>
                 <div className="restaurants-wrapper">
                     {restaurants.map(restaurant => {
-                        return <RestaurantPreview 
+                        return <RestaurantPreview
+                            click={this.selectRestaurantPreview}
                             key={restaurant.name}
                             data={restaurant}
                         />
                     })}
-                    
+
                 </div>
             </div>
             <div className="right-page">
@@ -103,8 +149,8 @@ class MainPage extends Component {
                 </div>
                 <div className="login-wrapper">
 
-                    <div 
-                        className={step === "login" ? "login-btn-wrapper login-btn-wrapper-visible" : "login-btn-wrapper" }
+                    <div
+                        className={step === "login" ? "login-btn-wrapper login-btn-wrapper-visible" : "login-btn-wrapper"}
                     >
                         <div>
                             Bentornato, entra nel tuo account!
@@ -139,9 +185,9 @@ class MainPage extends Component {
                     </div>
 
 
-                    <div 
-                        className={step === "register" ? "login-btn-wrapper login-btn-wrapper-visible" : "login-btn-wrapper" }
-                    >   
+                    <div
+                        className={step === "register" ? "login-btn-wrapper login-btn-wrapper-visible" : "login-btn-wrapper"}
+                    >
                         <div>
                             Registrati!
                         </div>
@@ -215,8 +261,7 @@ function InputEl(props) {
     </div>
 }
 
-function capitalize(string) 
-{
+function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 export default MainPage

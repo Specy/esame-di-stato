@@ -10,7 +10,7 @@ class RestaurantPreview extends Component{
     }
     render(){
         const {name, src,tags} = this.props.data
-        return <div className="restaurant-preview">
+        return <div className="restaurant-preview" onClick={() =>this.props.click(this.props.data)}>
             <img src={src}/>
             <div className="restaurant-name">
                 {name}
@@ -19,10 +19,10 @@ class RestaurantPreview extends Component{
                 <FontAwesomeIcon icon={faTag} />
                 {tags.join(", ")}
             </div>
+
         </div>
     }
 }
-
 
 
 export default RestaurantPreview

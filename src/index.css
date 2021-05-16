@@ -8,6 +8,7 @@
   --layer3:#c1c5c7;
   --layer4:#a9acae;
   --layer5:#919495;
+  --category: #264653;
 }
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @font-face {
@@ -111,6 +112,10 @@ body, html{
   justify-content: space-between;
   margin-bottom: 0.5rem;
 }
+a{
+  text-decoration: none;
+  color: inherit;
+}
 .filter-wrapper{
   min-width: 8rem;
   border-radius: 100rem;
@@ -147,6 +152,9 @@ body, html{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.left-page-top-container div{
+  text-align: center;
 }
 .navbar-input{
   height: 1.5rem;

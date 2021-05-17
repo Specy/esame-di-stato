@@ -11,11 +11,18 @@
     min-height: 10rem;
     display: flex;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
     align-items: center;
 }
-
+.restaurant-image-wide img{
+    width: 100%;
+    top: -50%;
+    position: absolute;
+    filter: brightness(0.8);
+}
 .category-wrapper{
-    padding-top: 1rem;
+    padding: 1rem 0;
     display: grid;
     grid-gap: 0.8rem;
     grid-template-columns: repeat(auto-fill, 5rem);
@@ -24,31 +31,50 @@
 .food-wrapper{
     display: flex;
     flex-direction: column;
-    padding:1rem;
 }
-.food-inputs-wrapper{
+.food-inputs-wrapper, .add-food-inputs-wrapper, .restaurant-form{
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding:1rem;
+    padding:0.75rem;
     margin-top: 1rem;
     background-color: var(--light-gray);
+    box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
     border-radius: 1rem;
     margin-left: 1rem;
 }
-.food-input-row{
+.restaurant-form{
+    padding-bottom: 0.25rem;
+    margin-bottom: 1rem;
+}
+.add-food-inputs-wrapper{
+    font-size: 1.3rem;
+    background-color: var(--green);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+.food-input-row, .restaurant-form-row{
     display: grid;
     grid-template-columns: 1fr 4fr;
     align-items: center;
     font-size: 1rem;
-    margin-top: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
 }
-.food-input-row input{
+.food-row-bottom{
+    display: flex;
+    justify-content: flex-end;
+
+}
+.food-input-row input, .food-input-row select, .restaurant-form-row input{
     padding:0.5rem;
     border-radius: 0.5rem;
     width: 100%;
+    box-shadow: 0 0 4px 0px rgb(0 0 10 / 25%);
 }
-.category-inputs-wrapper{
+
+.category-inputs-wrapper, .add-category-inputs-wrapper{
     height: 6rem;
     width: 5rem;
     font-size: 1rem;
@@ -59,14 +85,20 @@
     align-items: center;
     border-radius: 1.5rem;
     background-color: var(--category);
+    box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
     color: white;
     margin-left: 1rem;
+}
+.add-category-inputs-wrapper{
+    background-color: var(--green);
+    cursor: pointer;
 }
 .category-input{
     width: 100%;
     height: 1.5rem;
     text-align: center;
     background-color: rgba(0, 0,10, 0.25);
+    
     border-radius: 0.5rem;
     color: white;
 }

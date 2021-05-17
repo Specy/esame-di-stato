@@ -3,7 +3,7 @@
   --light-gray: #F1F6F9;
   --dark-blue: #264653;
   --green: #2A9D8F;
-  --red: #ff0033;
+  --red: #ff335b;
   --layer2:#d9dde0;
   --layer3:#c1c5c7;
   --layer4:#a9acae;
@@ -63,7 +63,7 @@ body, html{
   box-shadow: 2px 2px 8px 2px rgba(0, 0, 10, 0.25);
 }
 .big-text{
-  font-size: 1.8rem;
+  font-size: 1.7rem;
 
 }
 .space-between{
@@ -90,27 +90,71 @@ body, html{
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  position: relative;
   overflow: auto;
 }
 .navbar-wrapper{
-  border-radius: 100rem;
-  background-color: var(--layer2);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: calc(40%);
+  margin-left: 0rem;
+  z-index: 10;
+
+}
+.navbar-link{
+  padding: 0.4rem;
+  margin: 0.1rem;
+  background-color: white;
+  color: black;
+  border-radius: 0.8rem;
+  display: flex;
+
+  align-items: center;
+}
+.navbar-link:hover{
+  filter: brightness(0.9);
+}
+.navbar-link svg{
+  margin-right: 0.5rem;
+}
+.top-navbar{
   display: flex;
   flex-direction: row;
-  position: fixed;
   align-items: center;
-  width: calc(40%);
-  height: 2.5rem;
+  width: 100%;
+  min-height: 2.5rem;
+  border-radius: 1.25rem;
+  color: black;
+  background-color:white;
+  box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
   padding-left: 1rem;
-  margin-left: 0.2rem;
-  overflow: hidden;
+
+}
+.bottom-navbar{
+  display: flex;
+  width: 100%;
+  margin-top: 0.3rem;
+  border-radius: 1.25rem;
+  background-color: white;
+  box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
+  padding: 0.5rem;
+  display: none;
+  transition: 0.2s all;
+  flex-direction: column;
+
+}
+.navbar-open{
+  display: flex;
 }
 .title-and-filter{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+}
+.icon{
+  cursor: pointer;
 }
 a{
   text-decoration: none;
@@ -133,10 +177,19 @@ a{
   padding: 0.4rem 0;
   align-items: center;
   font-size: 1.2rem;
-  border-left: solid var(--dark-blue) 1px;
+  border-left: solid gray 1px;
   margin-left: 3rem;
   padding-right: 1rem;
 }
+.danger-btn{
+  padding: 0.3rem 0.8rem;
+  background-color: var(--red);
+  color: white;
+  width: fit-content;
+  font-size: 1rem;
+  border-radius: 2rem;
+}
+
 .left-page-top-container{
   width: 100%;
   margin-top: 4.5rem;
@@ -159,6 +212,7 @@ a{
 .navbar-input{
   height: 1.5rem;
   width: 100%;
+  color: white;
   background-color: transparent;
   font-size: 0.9rem;
   margin-left: 1.5rem;

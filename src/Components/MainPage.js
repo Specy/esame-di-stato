@@ -42,6 +42,12 @@ class MainPage extends Component {
 				new RestaurantPreviewCard(),
 				new RestaurantPreviewCard(),
 				new RestaurantPreviewCard(),
+				new RestaurantPreviewCard(),
+				new RestaurantPreviewCard(),
+				new RestaurantPreviewCard(),
+				new RestaurantPreviewCard(),
+				new RestaurantPreviewCard(),
+				new RestaurantPreviewCard(),
 			],
 		}
 	}
@@ -135,7 +141,7 @@ class MainPage extends Component {
 						<Link to='registerRestaurant'>
 							<div className="restaurant-preview add-restaurant">
 								<FaPlus size={20} />
-								<div>Want to add your restaurant? Click here</div>
+								<div>Vuoi registrare il tuo ristorante? Clicca qui</div>
 							</div>
 						</Link>
 					</div>

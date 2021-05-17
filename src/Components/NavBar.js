@@ -1,12 +1,15 @@
 import React, { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { FaTimes, FaSearch, FaBars, FaHome, FaShoppingCart} from 'react-icons/fa'
+import { IoMdRestaurant } from 'react-icons/io'
+import { Link } from "react-router-dom"
 class NavBar extends Component {
 	constructor(props) {
 		super(props)
 		this.ref = React.createRef()
 		this.state = {
 			searchValue: "",
+            open:false,
 		}
 	}
 
@@ -18,27 +21,59 @@ class NavBar extends Component {
 	sendChange = () => {
 		this.props.search(this.state.searchValue)
 	}
+    toggleNavbar = () =>{
+        this.setState({
+            open: !this.state.open
+        })
+    }
 	render() {
-		const { props } = this
+		const { props,state } = this
+        let bottomClass = state.open ? 'bottom-navbar navbar-open' : 'bottom-navbar'
 		return (
 			<>
 				<div className="navbar-wrapper">
-					<div className="navbar-logo">
-						<FontAwesomeIcon icon={faBars} />
-						<div>Site Name</div>
-					</div>
-					{props.hidden !== true && (
-						<div className="navbar-input-wrapper">
-							<input
-								value={this.state.searchValue}
-								ref={this.ref}
-								onChange={this.handleChange}
-								className="navbar-input"
-								placeholder={props.placeholder}
-							/>
-							<FontAwesomeIcon onClick={this.sendChange} icon={faSearch} />
+					<div className="top-navbar">
+						<div className="navbar-logo">
+							{state.open ? 
+                                <FaTimes onClick={this.toggleNavbar} className='icon'/>
+                            :
+                                <FaBars onClick={this.toggleNavbar} className='icon'/>
+                            }
+							<div>Site Name</div>
 						</div>
-					)}
+						{props.hidden !== true && (
+							<div className="navbar-input-wrapper">
+								<input
+									value={this.state.searchValue}
+									ref={this.ref}
+									onChange={this.handleChange}
+									className="navbar-input"
+									placeholder={props.placeholder}
+								/>
+                                <FaSearch onClick={this.sendChange} className='icon'/>
+							</div>
+						)}
+					</div>
+					<div className={bottomClass}>
+						<Link to="/">
+							<div className="navbar-link">
+                                <FaHome />
+                                Pagina principale
+                            </div>
+						</Link>
+						<Link>
+							<div className="navbar-link">
+                                <FaShoppingCart />
+                                Le mie ordinazioni
+                            </div>
+						</Link>
+						<Link  to="registerRestaurant">
+							<div className="navbar-link">
+                                <IoMdRestaurant />
+                                Registra il tuo ristorante
+                            </div>
+						</Link>
+					</div>
 				</div>
 			</>
 		)

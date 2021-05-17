@@ -22,7 +22,7 @@ class Index extends Component {
 					<Route exact path="/registerRestaurant">
 						<RegisterRestaurant />
 					</Route>
-					<Route exact path="/Restaurants"></Route>
+					<Route exact path="/restaurants"></Route>
 				</HashRouter>
 			</div>
 		)

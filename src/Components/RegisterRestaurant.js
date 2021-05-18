@@ -1,5 +1,6 @@
 import React, { Component, useRef } from "react"
 import { FaMapMarkerAlt, FaPlus, FaTimes } from "react-icons/fa"
+import { IoMdRestaurant } from 'react-icons/io'
 import NavBar from "./NavBar"
 import "./RegisterRestaurant.css"
 import Picker from "emoji-picker-react"
@@ -198,9 +199,10 @@ class RegisterRestaurant extends Component {
 					</div>
 				</div>
 				<div className="right-page">
-					<div className="row center-y space-between">
-						<div className="big-text center-y">Registra il tuo ristorante</div>
-					</div>
+				<div className='row space-between center-y'>
+                        <div className='big-text'>Registra</div>
+                        <IoMdRestaurant size={25}/>
+                    </div>
 					<div className="login-wrapper">
 						<button className="rounded-btn login-btn">
 							Termina la registrazione

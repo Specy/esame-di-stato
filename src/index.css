@@ -80,10 +80,12 @@ body, html{
 }
 .right-page{
   width: 23%;
+
   background-color: var(--light-gray);
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1rem;
+  padding-top: 2.5rem;
 }
 .left-page{
   flex: 1;
@@ -174,7 +176,6 @@ a{
   display: flex;
   flex: 1;
   height: 100%;
-  padding: 0.4rem 0;
   align-items: center;
   font-size: 1.2rem;
   border-left: solid gray 1px;
@@ -212,10 +213,9 @@ a{
 .navbar-input{
   height: 1.5rem;
   width: 100%;
-  color: white;
+  color: black;
   background-color: transparent;
   font-size: 0.9rem;
-  margin-left: 1.5rem;
   padding-left: 1rem;
 }
 .navbar-input::placeholder{
@@ -283,4 +283,19 @@ a{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+@media  screen and (orientation:portrait) {
+  .right-page{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 5rem;
+    z-index: 5;
+  }
+  .navbar-wrapper{
+    width: calc(100% - 2rem);
+    margin: 1rem;
+    top: 0.5rem;
+    left: 0;
+  }
 }

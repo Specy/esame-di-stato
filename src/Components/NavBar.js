@@ -12,7 +12,6 @@ class NavBar extends Component {
             open:false,
 		}
 	}
-
 	handleChange = () => {
 		this.setState({
 			searchValue: this.ref.current.value,

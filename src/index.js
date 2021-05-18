@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import "./index.css"
 import MainPage from "./Components/MainPage"
 import RegisterRestaurant from './Components/RegisterRestaurant'
+import Order from './Components/Order'
 import { Route, Link, HashRouter } from "react-router-dom"
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 
@@ -18,11 +19,12 @@ class Index extends Component {
 					<Route exact path="/">
 						<MainPage />
 					</Route>
-
 					<Route exact path="/registerRestaurant">
 						<RegisterRestaurant />
 					</Route>
-					<Route exact path="/restaurants"></Route>
+					<Route exact path="/order">
+						<Order />
+					</Route>
 				</HashRouter>
 			</div>
 		)

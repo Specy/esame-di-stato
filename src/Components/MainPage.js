@@ -23,7 +23,7 @@ class MainPage extends Component {
 			},
 			restaurantPreview: {
 				visible: false,
-				...new RestaurantPreviewCard(),
+				...new RestaurantPreviewCard(), //change with API call
 			},
 			login: {
 				email: "",
@@ -113,7 +113,10 @@ class MainPage extends Component {
 						</div>
 						<div>{restaurantPreview.description}</div>
 						<Menu data={restaurantPreview}></Menu>
-						<button className="visit-btn">Visita</button>
+						<Link to='order' >
+							<button className="visit-btn" style={{width:'100%'}}>Visita</button>
+						</Link>
+						
 					</div>
 				</div>
 

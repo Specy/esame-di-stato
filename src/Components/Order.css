@@ -1,0 +1,104 @@
+.order-cateogry{
+    display: flex;
+    flex-direction: column;
+    padding:0.75rem;
+    margin-top: 1rem;
+    background-color: var(--light-gray);
+    box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
+    border-radius: 1rem;
+    margin-left: 1rem;
+}
+.order-category-title{
+    align-items: center;
+    display: flex;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.order-category-title svg{
+    margin-right: 1rem;
+}
+.order-foods-wrapper{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+.order-title{
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.order-food{
+    flex: 1;
+    border-radius: 1.25rem;
+    min-height: 5rem;
+    display: flex;
+    background-color: white;
+    padding: 0.75rem;
+    box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
+    flex-direction: column;
+}
+.order-description{
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.cart-address{
+    margin-top: 3.5rem;
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+}
+.cart-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-row:first-child{
+    margin-bottom: 0.4rem;
+}
+.cart-wrapper{
+    overflow-y: scroll;
+    flex: 1;
+    margin-top: 2rem;
+}
+.cart-food-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem;
+}
+.cart-bottom{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: solid 1px gray;
+    justify-content: space-between;
+}
+.cart-price{
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    width: 40%;
+}
+.order-btn{
+    width: 100%;
+    background-color: var(--green);
+    border-radius: 2rem;
+    padding: 0.4rem;
+    color: white;
+    font-size: 1rem;
+}
+.cart-food{
+    padding: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+}
+.cart-food svg:hover{
+    filter: brightness(1.1);
+}
+.cart-row input{
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    width: 10vw;
+}

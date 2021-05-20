@@ -1,4 +1,4 @@
-.order-cateogry{
+.order-category{
     display: flex;
     flex-direction: column;
     padding:0.75rem;
@@ -12,12 +12,18 @@
     align-items: center;
     display: flex;
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
 }
 .order-category-title svg{
     margin-right: 1rem;
 }
+.restaurant-info{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
 .order-foods-wrapper{
+    margin-top: 0.5rem;
     display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 0.8rem;
@@ -101,4 +107,15 @@
     border-radius: 0.3rem;
     padding: 0.3rem;
     width: 10vw;
+}
+@media  screen and (orientation:portrait) {
+    .cart-row input{
+        width: 40vw;
+    }
+    .order-foods-wrapper{
+        grid-template-columns: 1fr;
+    }
+    .order-category{
+        margin-left: 0;
+    }
 }

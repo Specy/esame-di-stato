@@ -6,22 +6,26 @@ import {
 	FaChevronRight,
 	FaShoppingCart,
 	FaPlusCircle,
-	FaMinusCircle,
+	FaMinusCircle
 } from "react-icons/fa"
 import "./Order.css"
 class Orders extends Component {
 	constructor(props) {
 		super(props)
         let time = new Date(new Date().getTime() + 3600000)
+        time = time.toTimeString().split(" ")[0].split(':')
+        time.splice(2,1)
+        this.isPortrait = window.screen.width > window.screen.height 
 		this.state = {
+            openSideMenu:this.isPortrait ,
 			restaurant: {
-				...new RestaurantPreviewCard(),
+				...(this.props.location.state || new RestaurantPreviewCard({})),
 			},
 			order: {
 				address: "",
-				time: time.getHours() +':'+time.getMinutes(),
+				time: time.join(':'),
 				foods: [],
-			},
+			}
 		}
 	}
 	search = () => {}
@@ -39,29 +43,53 @@ class Orders extends Component {
 			order: order,
 		})
 	}
+    mobileOpenSideMenu = () =>{
+        this.setState({
+            openSideMenu: !this.state.openSideMenu
+        })
+    }
+    changeQuantity = (id,quantity) =>{
+        let order = this.state.order
+		let index = order.foods.findIndex((e) => e.id === id)
+        let food = order.foods[index]
+        food.quantity += quantity
+        if(food.quantity <=0){
+            order.foods.splice(index,1)
+        }
+		this.setState({
+			order: order,
+		})
+    }
 	handleOrderInput = (key, value) => {}
 	render() {
 		const { state, props } = this
 		let categoryFunctions = {
 			showFood: this.showFood,
 		}
+		let sideMenuClass = this.state.openSideMenu ?'right-page-open right-page' : 'right-page'
 		return (
 			<div className="main-page">
 				<div className="left-page">
-					<NavBar placeholder="Cerca cibo" search={this.search} />
+					<NavBar 
+                        placeholder="Cerca cibo"
+                        search={this.search} 
+                        openSide={<div className='nav-open-side' onClick={this.mobileOpenSideMenu}>
+							<FaShoppingCart />
+						</div>}
+                    />
 					<div className="restaurant-image-wide" style={{ cursor: "default" }}>
 						<div className="restaurant-name">{state.restaurant.name}</div>
 						<img src={state.restaurant.src} />
 					</div>
-                    <div>
+                    <div className='restaurant-info'>
                        <div className='row'>
                             Indirizzo: {state.restaurant.address}
                        </div>
                        <div className='row'>
-                            Telefono: {state.restaurant.address}
+                             Telefono: {state.restaurant.phoneNumber}
                        </div>
                        <div className='row'>
-                            Indirizzo: {state.restaurant.address}
+                            Descrizione: {state.restaurant.description}
                        </div>
                     </div>
 					<div>
@@ -72,7 +100,7 @@ class Orders extends Component {
 					</div>
 				</div>
 
-				<div className="right-page">
+				<div className={sideMenuClass}>
 					<div className="row space-between center-y">
 						<div className="big-text">Carrello</div>
 						<FaShoppingCart size={25} />
@@ -107,8 +135,8 @@ class Orders extends Component {
 										{food.quantity} x {food.name}
 									</div>
 									<div className="cart-food-buttons">
-										<FaMinusCircle />
-										<FaPlusCircle />
+										<FaMinusCircle onClick={() => this.changeQuantity(food.id, -1)}/>
+										<FaPlusCircle onClick={() => this.changeQuantity(food.id, 1)}/>
 									</div>
 								</div>
 							)
@@ -118,7 +146,7 @@ class Orders extends Component {
 						<div className="cart-price">
 							<div>
 								{state.order.foods
-									.reduce((acc, curr) => (acc += curr.price), 0)
+									.reduce((acc, curr) => (acc += curr.price *curr.quantity), 0)
 									.toPrecision(2)}
 							</div>
 							€
@@ -135,7 +163,7 @@ function Category(props) {
 	const { data, functions } = props
 	const [visible, toggleVisible] = useState(false)
 	return (
-		<div className="order-cateogry">
+		<div className="order-category">
 			<div
 				className="order-category-title"
 				onClick={() => toggleVisible(!visible)}

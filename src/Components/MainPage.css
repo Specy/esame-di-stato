@@ -46,9 +46,9 @@
     top: 20vh;
     background-color: var(--layer2);
     width: 60vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
     border-radius: 1rem;
 }
 .floating-restaurant-title{
@@ -111,9 +111,11 @@
     flex-direction: row;
     justify-content: flex-start;
     padding: 0.5rem;
+    align-items: center;
 }
 .menu-row-category div{
     margin-left: 1rem;
+    font-size: 1.2rem;
 }
 .menu-row-wrapper{
     background-color: var(--layer3);
@@ -132,8 +134,9 @@
     transition: all 0.5s;
 }
 .menu-food-row{
-    padding: 0.2rem 2rem;
-    border-bottom: solid 1px gray;
+    margin: 0 2rem;
+    padding: 0.2rem 1rem;
+    border-bottom: solid 1px rgb(150, 149, 149);
 }
 .food-wrapper{
     display: flex;
@@ -253,4 +256,12 @@
     align-items: center;
     position: relative;
     
+}
+@media  screen and (orientation:portrait) {
+    .restaurant-floating-data{
+        width: 90vw;
+    }
+    .restaurants-wrapper{
+        grid-template-columns: 1fr;
+    }
 }

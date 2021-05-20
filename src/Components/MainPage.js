@@ -10,20 +10,22 @@ import {
 import NavBar from "./NavBar"
 import RestaurantPreview from "./RestaurantPreview"
 import { RestaurantPreviewCard } from "./utils"
-import { FaMapMarkerAlt, FaPlus } from "react-icons/fa"
+import { FaMapMarkerAlt, FaPlus, FaUser } from "react-icons/fa"
 import { matchSorter } from "match-sorter"
 import Menu from "./Menu"
 import { Link } from "react-router-dom"
 class MainPage extends Component {
 	constructor(props) {
 		super(props)
+		this.isPortrait = window.screen.width > window.screen.height 
 		this.state = {
+			openSideMenu:this.isPortrait ,
 			user: {
 				name: "Nome Utente",
 			},
 			restaurantPreview: {
 				visible: false,
-				...new RestaurantPreviewCard(), //change with API call
+				...new RestaurantPreviewCard({}),
 			},
 			login: {
 				email: "",
@@ -35,23 +37,54 @@ class MainPage extends Component {
 				name: "",
 				surname: "",
 				address: "",
+				phoneNumber: ""
 			},
 			step: "login",
 			search: "",
 			restaurants: [
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-				new RestaurantPreviewCard(),
-			],
+
+			]
+
 		}
+		this.sync()
 	}
-	handleInput = (obj) => {}
+
+	sync = async () =>{
+		let restaurants = await fetch('/api/getRestaurants.php').then(data => data.json())
+		console.log(restaurants)
+		restaurants = restaurants.map(restaurant => {
+			return new RestaurantPreviewCard(restaurant)
+		})
+		this.setState({
+			restaurants: restaurants
+		})
+	}
+	handleInput = (obj) => {
+		let state = this.state[this.state.step]
+		state[obj.key] = obj.value
+		this.setState({
+			state: this.state
+		})
+	}
+	mobileOpenSideMenu = () =>{
+        this.setState({
+            openSideMenu: !this.state.openSideMenu
+        })
+    }
+	register = async () => {
+		let response = await fetch("/api/registerUser.php",{
+			method:"POST",
+			body:JSON.stringify(this.state.register)
+		}).then(data => data.json())
+		alert(`${response.status}! ${response.content}`)
+	}
+	login = async () => {
+		let response = await fetch("/api/loginUser.php",{
+			method:"POST",
+			body:JSON.stringify(this.state.login)
+		}).then(data => data.json())
+		alert(`${response.status}! ${response.content}`)
+	}
 	changeStep = (step) => {
 		this.setState({
 			step: step,
@@ -84,6 +117,7 @@ class MainPage extends Component {
 	}
 	render() {
 		const { step, user, restaurants, restaurantPreview } = this.state
+		let sideMenuClass = this.state.openSideMenu ?'right-page-open right-page' : 'right-page'
 		return (
 			<div className="main-page">
 				<div
@@ -113,15 +147,24 @@ class MainPage extends Component {
 						</div>
 						<div>{restaurantPreview.description}</div>
 						<Menu data={restaurantPreview}></Menu>
-						<Link to='order' >
-							<button className="visit-btn" style={{width:'100%'}}>Visita</button>
+						<Link to={{
+							pathname:'order',
+							state: this.state.restaurantPreview
+						}}>	
+							<button className="visit-btn" style={{width:'100%', marginBottom:'1rem'}}>Visita</button>
 						</Link>
 						
 					</div>
 				</div>
 
 				<div className="left-page">
-					<NavBar placeholder="Cerca un ristorante" search={this.search} />
+					<NavBar 
+						placeholder="Cerca un ristorante" 
+						search={this.search} 
+						openSide={<div className='nav-open-side' onClick={this.mobileOpenSideMenu}>
+							<FaUser />
+						</div>}
+					/>
 					<div className="left-page-top-container">
 						<div>Un ristorante, un ordine, è tutto ciò che ti serve.</div>
 					</div>
@@ -149,7 +192,7 @@ class MainPage extends Component {
 						</Link>
 					</div>
 				</div>
-				<div className="right-page">
+				<div className={sideMenuClass}>
 					<div className="row center-y space-between">
 						<div className="big-text center-y">{user.name}</div>
 						<FontAwesomeIcon icon={faUser} className="user-icon" />
@@ -179,7 +222,7 @@ class MainPage extends Component {
 
 							<button
 								className="rounded-btn login-btn"
-								onClick={() => this.changeStep("login")}
+								onClick={this.login}
 							>
 								Fai il login
 							</button>
@@ -214,7 +257,7 @@ class MainPage extends Component {
 							</div>
 							<button
 								className="rounded-btn login-btn"
-								onClick={() => this.changeStep("register")}
+								onClick={this.register}
 							>
 								Registrati
 							</button>
@@ -235,22 +278,21 @@ class MainPage extends Component {
 
 function InputEl(props) {
 	const { objKey, value, sendChange } = props
-	const [valid, changeValidity] = useState(false)
 	const [inputValue, setValue] = useState(value)
 	let type = objKey === "password" ? "password" : "text"
 	let regex = /.{3,}$/
 	if (objKey === "email") regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 	if (objKey === "password") regex = /.{6,}$/
+	const [valid, changeValidity] = useState(regex.test(value))
 	const ref = useRef()
 	function update() {
 		let el = ref.current
 		let value = el.value
 		changeValidity(regex.test(value))
-		console.log(regex.test(value))
 		setValue(value)
 	}
 	function updateParent() {
-		sendChange({ key: objKey, value: value })
+		sendChange({ key: objKey, value: inputValue })
 	}
 	return (
 		<div className="input-wrapper">

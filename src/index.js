@@ -16,15 +16,9 @@ class Index extends Component {
 		return (
 			<div className="pages-wrapper">
 				<HashRouter>
-					<Route exact path="/">
-						<MainPage />
-					</Route>
-					<Route exact path="/registerRestaurant">
-						<RegisterRestaurant />
-					</Route>
-					<Route exact path="/order">
-						<Order />
-					</Route>
+					<Route exact path="/" component={MainPage}/>
+					<Route exact path="/registerRestaurant" component={RegisterRestaurant}/>
+					<Route exact path="/order" component={Order}/>
 				</HashRouter>
 			</div>
 		)

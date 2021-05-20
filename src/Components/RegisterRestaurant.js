@@ -8,12 +8,17 @@ import EmojiPicker from "emoji-picker-react"
 class RegisterRestaurant extends Component {
 	constructor(props) {
 		super(props)
+		this.isPortrait = window.screen.width > window.screen.height 
 		this.state = {
+			openSideMenu: this.isPortrait,
 			info: {
 				src: "",
 				name: "",
 				address: "",
 				description: "",
+				phoneNumber: "",
+				email: "",
+				password: "",
 				tags: "",
 			},
 			menu: {
@@ -72,6 +77,11 @@ class RegisterRestaurant extends Component {
 			menu: menu,
 		})
 	}
+	mobileOpenSideMenu = () =>{
+        this.setState({
+            openSideMenu: !this.state.openSideMenu
+        })
+    }
 	addFoodInput = () => {
 		let menu = this.state.menu
 		let nextFood = new Food()
@@ -88,6 +98,26 @@ class RegisterRestaurant extends Component {
 		this.setState({
 			info: info,
 		})
+	}
+	registerRestaurant = async() =>{
+		const {info, menu} = this.state
+		let dataToSend = {
+			name: info.name,
+			address: info.address,
+			description: info.description,
+			phoneNumber: info.phoneNumber,
+			email: info.email,
+			password: info.password,
+			tags: info.tags,
+			categories: menu.categories,
+			foods: menu.foods,
+			src: info.src
+		}
+		let response = await fetch("/api/registerRestaurant.php",{
+			method:"POST",
+			body: JSON.stringify(dataToSend)
+		}).then(data => data.json())
+		alert(`${response.status}! \n${response.content}`)
 	}
 	removeFood = (id) => {
 		let menu = this.state.menu
@@ -109,10 +139,16 @@ class RegisterRestaurant extends Component {
 			handleFood: this.handleFood,
 			removeFood: this.removeFood,
 		}
+		let sideMenuClass = this.state.openSideMenu ?'right-page-open right-page' : 'right-page'
 		return (
 			<div className="main-page">
 				<div className="left-page">
-					<NavBar hidden={true} />
+					<NavBar
+					 hidden={true}
+					 openSide={<div className='nav-open-side' onClick={this.mobileOpenSideMenu}>
+							<IoMdRestaurant />
+						</div>}
+					/>
 					<div className="register-restaurant-wrapper">
 						<FilePicker onChange={this.addImage}>
 							<div className="restaurant-image-wide">
@@ -149,6 +185,33 @@ class RegisterRestaurant extends Component {
 									value={state.info.tags}
 									onChange={(e) =>
 										this.handleRestaurantForm("tags", e.target.value)
+									}
+								/>
+							</div>
+							<div className="restaurant-form-row">
+								<div>Email</div>
+								<input
+									value={state.info.description}
+									onChange={(e) =>
+										this.handleRestaurantForm("email", e.target.value)
+									}
+								/>
+							</div>
+							<div className="restaurant-form-row">
+								<div>Password</div>
+								<input
+									value={state.info.description}
+									onChange={(e) =>
+										this.handleRestaurantForm("password", e.target.value)
+									}
+								/>
+							</div>
+							<div className="restaurant-form-row">
+								<div>Numero di telefono</div>
+								<input
+									value={state.info.description}
+									onChange={(e) =>
+										this.handleRestaurantForm("phoneNumber", e.target.value)
 									}
 								/>
 							</div>
@@ -198,13 +261,13 @@ class RegisterRestaurant extends Component {
 						</div>
 					</div>
 				</div>
-				<div className="right-page">
+				<div className={sideMenuClass}>
 				<div className='row space-between center-y'>
                         <div className='big-text'>Registra</div>
                         <IoMdRestaurant size={25}/>
                     </div>
 					<div className="login-wrapper">
-						<button className="rounded-btn login-btn">
+						<button className="rounded-btn login-btn" onClick={this.registerRestaurant}>
 							Termina la registrazione
 						</button>
 					</div>
@@ -284,7 +347,7 @@ function CategoryInput(props) {
 function FoodInput(props) {
 	const { data, functions } = props
 	function handleCategorySelect(e) {
-		let index = e.target.slectedIndex
+		let index = e.target.selectedIndex
 		functions.handleFood(data.id, data.categories[index].id, "categoryId")
 	}
 	return (
@@ -322,7 +385,7 @@ function FoodInput(props) {
 			</div>
 			<div className="food-input-row">
 				<div>Categoria</div>
-				<select onSelect={handleCategorySelect}>
+				<select onChange={handleCategorySelect}>
 					{data.categories.map((category) => {
 						return (
 							<option

@@ -5,7 +5,7 @@
   --green: #2A9D8F;
   --red: #ff335b;
   --layer2:#d9dde0;
-  --layer3:#c1c5c7;
+  --layer3:#ced2d3;
   --layer4:#a9acae;
   --layer5:#919495;
   --category: #264653;
@@ -64,7 +64,18 @@ body, html{
 }
 .big-text{
   font-size: 1.7rem;
-
+}
+.nav-open-side{
+  display: none;
+  color: #303030;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  margin-left: 0.5rem;
+  height: 2.5rem;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
 }
 .space-between{
   justify-content: space-between;
@@ -92,7 +103,7 @@ body, html{
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  overflow: auto;
+  overflow: scroll;
 }
 .navbar-wrapper{
   color: white;
@@ -122,9 +133,9 @@ body, html{
 }
 .top-navbar{
   display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
-  width: 100%;
   min-height: 2.5rem;
   border-radius: 1.25rem;
   color: black;
@@ -194,10 +205,12 @@ a{
 .left-page-top-container{
   width: 100%;
   margin-top: 4.5rem;
+  padding: 1rem;
   margin-bottom: 2.5rem;
   border-radius: 1rem;
-  background-color: #08AEEA;
-  background-image: linear-gradient(90deg, #08AEEA 0%, #1de48b 100%);
+  background: linear-gradient(270deg, #1de48b, #08aeea);
+  background-size: 400% 400%;
+  animation: gradient-animation 9s ease infinite;
   box-shadow: 1px 1px 5px rgba(0, 0,10, 0.25);
   text-shadow: 0px 0px 4px black;
   font-size: 2rem;
@@ -206,6 +219,12 @@ a{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@keyframes gradient-animation {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 .left-page-top-container div{
   text-align: center;
@@ -285,17 +304,34 @@ a{
   background: #555;
 }
 @media  screen and (orientation:portrait) {
+  .nav-open-side{
+    display: flex;
+  }
+  .left-page{
+    padding: 1rem;
+  }
   .right-page{
     position: fixed;
     width: 100vw;
     height: 100vh;
     padding-top: 5rem;
     z-index: 5;
+    transform: translateX(100vw);
+    transition: all 0.3s;
+  }
+  .right-page-open{
+    transform: translateX(0);
+  }
+  .navbar-logo{
+    font-size: 1rem;
+  }
+  .navbar-input-wrapper{
+    margin-left: 0.5rem;
   }
   .navbar-wrapper{
-    width: calc(100% - 2rem);
-    margin: 1rem;
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
     top: 0.5rem;
-    left: 0;
+    left:0;
   }
 }

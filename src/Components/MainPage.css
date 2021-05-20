@@ -261,6 +261,9 @@
     .restaurant-floating-data{
         width: 90vw;
     }
+    .login-input{
+        width: 60vw;
+    }
     .restaurants-wrapper{
         grid-template-columns: 1fr;
     }

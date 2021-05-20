@@ -11,6 +11,7 @@ class RestaurantPreviewCard{
             categories:data.categories || []
         }: exampleMenu)
         this.phoneNumber = data.phoneNumber || "123456789"
+        this.id = data.id || null
     }
 }
 function random(){

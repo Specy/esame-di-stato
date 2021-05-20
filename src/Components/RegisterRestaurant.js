@@ -1,10 +1,8 @@
 import React, { Component, useRef } from "react"
-import { FaMapMarkerAlt, FaPlus, FaTimes } from "react-icons/fa"
+import { FaPlus, FaTimes } from "react-icons/fa"
 import { IoMdRestaurant } from 'react-icons/io'
 import NavBar from "./NavBar"
 import "./RegisterRestaurant.css"
-import Picker from "emoji-picker-react"
-import EmojiPicker from "emoji-picker-react"
 class RegisterRestaurant extends Component {
 	constructor(props) {
 		super(props)
@@ -191,7 +189,7 @@ class RegisterRestaurant extends Component {
 							<div className="restaurant-form-row">
 								<div>Email</div>
 								<input
-									value={state.info.description}
+									value={state.info.email}
 									onChange={(e) =>
 										this.handleRestaurantForm("email", e.target.value)
 									}
@@ -200,7 +198,7 @@ class RegisterRestaurant extends Component {
 							<div className="restaurant-form-row">
 								<div>Password</div>
 								<input
-									value={state.info.description}
+									value={state.info.password}
 									onChange={(e) =>
 										this.handleRestaurantForm("password", e.target.value)
 									}
@@ -209,7 +207,7 @@ class RegisterRestaurant extends Component {
 							<div className="restaurant-form-row">
 								<div>Numero di telefono</div>
 								<input
-									value={state.info.description}
+									value={state.info.phoneNumber}
 									onChange={(e) =>
 										this.handleRestaurantForm("phoneNumber", e.target.value)
 									}

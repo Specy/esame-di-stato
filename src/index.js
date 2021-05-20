@@ -6,7 +6,8 @@ import RegisterRestaurant from './Components/RegisterRestaurant'
 import Order from './Components/Order'
 import { Route, Link, HashRouter } from "react-router-dom"
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
-
+import MyOrders from './Components/MyOrders'
+import RestaurantArea from './Components/RestaurantArea'
 class Index extends Component {
 	constructor(props) {
 		super(props)
@@ -19,6 +20,8 @@ class Index extends Component {
 					<Route exact path="/" component={MainPage}/>
 					<Route exact path="/registerRestaurant" component={RegisterRestaurant}/>
 					<Route exact path="/order" component={Order}/>
+					<Route exact path="/myOrders" component={MyOrders}/>
+					<Route exact path="/restaurantArea" component={RestaurantArea}/>
 				</HashRouter>
 			</div>
 		)

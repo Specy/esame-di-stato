@@ -70,7 +70,7 @@ class NavBar extends Component {
 								Pagina principale
 							</div>
 						</Link>
-						<Link>
+						<Link to='/myOrders'>
 							<div className="navbar-link">
 								<FaShoppingCart />
 								Le mie ordinazioni
@@ -80,6 +80,12 @@ class NavBar extends Component {
 							<div className="navbar-link">
 								<IoMdRestaurant />
 								Registra il tuo ristorante
+							</div>
+						</Link>
+						<Link to="restaurantArea">
+							<div className="navbar-link">
+								<IoMdRestaurant />
+								Area ristoratori
 							</div>
 						</Link>
 					</div>

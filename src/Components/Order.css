@@ -32,9 +32,12 @@
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
+.restaurant-info .row div:not(.bold){
+    margin-left: 0.8rem;
+}
 .order-food{
     flex: 1;
-    border-radius: 1.25rem;
+    border-radius: 1rem;
     min-height: 5rem;
     display: flex;
     background-color: white;
@@ -55,6 +58,7 @@
 }
 .cart-row{
     display: flex;
+
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -66,6 +70,9 @@
     overflow-y: scroll;
     flex: 1;
     margin-top: 2rem;
+}
+.cart-food{
+    color: #585858;
 }
 .cart-food-buttons{
     display: grid;
@@ -101,14 +108,67 @@
     justify-content: space-between;
 }
 .cart-food svg:hover{
-    filter: brightness(1.1);
+    fill: #2A9D8F;
+}
+.cart-food svg:first-child:hover{
+    fill: #ff335b;
+}
+.order-food svg{
+    cursor: pointer;
 }
 .cart-row input{
     border-radius: 0.3rem;
     padding: 0.3rem;
     width: 10vw;
 }
+.category-name{
+    font-weight: bold;
+}
+.orders-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.order-total-price{
+    display: flex;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-top: solid 1px gray;
+    justify-content: flex-end;
+}
+.order{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 1px 8px 0px rgb(0 0 10 / 25%);
+    border-radius: 1rem;
+    min-height: 5rem;
+    padding: 1rem;
+}
+.order-food-row{
+    display: flex;
+    justify-content: space-between;
+}
+.order-food-wrapper{
+    display: grid;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+}
+.floating-restaurant-login{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media  screen and (orientation:portrait) {
+    .orders-wrapper{
+        grid-template-columns: 1fr;
+    }
     .cart-row input{
         width: 40vw;
     }

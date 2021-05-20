@@ -21,7 +21,7 @@ class MainPage extends Component {
 		this.state = {
 			openSideMenu:this.isPortrait ,
 			user: {
-				name: "Nome Utente",
+				name: "Non loggato",
 			},
 			restaurantPreview: {
 				visible: false,
@@ -51,13 +51,21 @@ class MainPage extends Component {
 
 	sync = async () =>{
 		let restaurants = await fetch('/api/getRestaurants.php').then(data => data.json())
-		console.log(restaurants)
 		restaurants = restaurants.map(restaurant => {
 			return new RestaurantPreviewCard(restaurant)
 		})
 		this.setState({
 			restaurants: restaurants
 		})
+		let validSession = await fetch('/api/checkSession.php').then(data => data.json())
+		if(validSession){
+			this.setState({
+				user:{
+					name: localStorage.getItem('name')
+				}
+			})
+		}
+
 	}
 	handleInput = (obj) => {
 		let state = this.state[this.state.step]
@@ -83,7 +91,13 @@ class MainPage extends Component {
 			method:"POST",
 			body:JSON.stringify(this.state.login)
 		}).then(data => data.json())
-		alert(`${response.status}! ${response.content}`)
+		localStorage.setItem('name',response.content.name)
+		alert(`${response.status}! Loggato come: ${response.content.name}`)
+		this.setState({
+			user:{
+				name:response.content.name
+			}
+		})
 	}
 	changeStep = (step) => {
 		this.setState({
@@ -170,10 +184,6 @@ class MainPage extends Component {
 					</div>
 					<div className="title-and-filter">
 						<div className="big-text">Ristoranti</div>
-						<div className="filter-wrapper">
-							Filtra
-							<FontAwesomeIcon icon={faFilter} />
-						</div>
 					</div>
 
 					<div className="restaurants-wrapper">

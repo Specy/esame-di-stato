@@ -6,26 +6,27 @@ import {
 	FaChevronRight,
 	FaShoppingCart,
 	FaPlusCircle,
-	FaMinusCircle
+	FaMinusCircle,
 } from "react-icons/fa"
 import "./Order.css"
 class Orders extends Component {
 	constructor(props) {
 		super(props)
-        let time = new Date(new Date().getTime() + 3600000)
-        time = time.toTimeString().split(" ")[0].split(':')
-        time.splice(2,1)
-        this.isPortrait = window.screen.width > window.screen.height 
+		let time = new Date(new Date().getTime() + 3600000)
+		time = time.toTimeString().split(" ")[0].split(":")
+		time.splice(2, 1)
+		this.isPortrait = window.screen.width > window.screen.height
 		this.state = {
-            openSideMenu:this.isPortrait ,
+			openSideMenu: this.isPortrait,
 			restaurant: {
 				...(this.props.location.state || new RestaurantPreviewCard({})),
 			},
 			order: {
 				address: "",
-				time: time.join(':'),
+				time: time.join(":"),
 				foods: [],
-			}
+				restaurantId: null
+			},
 		}
 	}
 	search = () => {}
@@ -43,55 +44,89 @@ class Orders extends Component {
 			order: order,
 		})
 	}
-    mobileOpenSideMenu = () =>{
-        this.setState({
-            openSideMenu: !this.state.openSideMenu
-        })
-    }
-    changeQuantity = (id,quantity) =>{
-        let order = this.state.order
+	mobileOpenSideMenu = () => {
+		this.setState({
+			openSideMenu: !this.state.openSideMenu,
+		})
+	}
+	order = async () => {
+		let data = this.state.order
+		data.restaurantId = Number(this.state.restaurant.id)
+		let response = await fetch('/api/placeOrder.php',{
+			method:'POST',
+			body: JSON.stringify(this.state.order)
+		}).then(data => data.json())
+		alert(`${response.status}! ${response.content}`)
+	}
+	changeQuantity = (id, quantity) => {
+		let order = this.state.order
 		let index = order.foods.findIndex((e) => e.id === id)
-        let food = order.foods[index]
-        food.quantity += quantity
-        if(food.quantity <=0){
-            order.foods.splice(index,1)
-        }
+		let food = order.foods[index]
+		food.quantity += quantity
+		if (food.quantity <= 0) {
+			order.foods.splice(index, 1)
+		}
 		this.setState({
 			order: order,
 		})
-    }
+	}
 	handleOrderInput = (key, value) => {}
 	render() {
 		const { state, props } = this
 		let categoryFunctions = {
 			showFood: this.showFood,
 		}
-		let sideMenuClass = this.state.openSideMenu ?'right-page-open right-page' : 'right-page'
+		let sideMenuClass = this.state.openSideMenu
+			? "right-page-open right-page"
+			: "right-page"
+		let ordersTable = [
+			...state.restaurant.menu.table.map((category) => {
+				return {
+					categoryName: category.categoryName,
+					categoryId: category.categoryId,
+					foods: this.state.order.foods.filter(
+						(food) => food.categoryId === category.categoryId
+					),
+				}
+			}),
+		].filter((category) => category.foods.length > 0)
 		return (
 			<div className="main-page">
 				<div className="left-page">
-					<NavBar 
-                        placeholder="Cerca cibo"
-                        search={this.search} 
-                        openSide={<div className='nav-open-side' onClick={this.mobileOpenSideMenu}>
-							<FaShoppingCart />
-						</div>}
-                    />
+					<NavBar
+						placeholder="Cerca cibo"
+						search={this.search}
+						openSide={
+							<div className="nav-open-side" onClick={this.mobileOpenSideMenu}>
+								<FaShoppingCart />
+							</div>
+						}
+					/>
 					<div className="restaurant-image-wide" style={{ cursor: "default" }}>
 						<div className="restaurant-name">{state.restaurant.name}</div>
 						<img src={state.restaurant.src} />
 					</div>
-                    <div className='restaurant-info'>
-                       <div className='row'>
-                            Indirizzo: {state.restaurant.address}
-                       </div>
-                       <div className='row'>
-                             Telefono: {state.restaurant.phoneNumber}
-                       </div>
-                       <div className='row'>
-                            Descrizione: {state.restaurant.description}
-                       </div>
-                    </div>
+					<div className="restaurant-info">
+						<div className="row">
+							<div className="bold">Indirizzo: </div>
+							<div>
+								{state.restaurant.address}		
+							</div>
+							 
+						</div>
+						<div className="row">
+							<div className="bold">Telefono: </div>{" "}
+							<div>
+								{state.restaurant.phoneNumber}		
+							</div>
+						</div>
+						<div className="row">
+							<div className="bold">Descrizione: </div>
+							<div>
+								{state.restaurant.description}		
+							</div>
+						</div>
+					</div>
 					<div>
 						<div className="big-text">Categorie</div>
 						{state.restaurant.menu.table.map((category) => (
@@ -106,7 +141,7 @@ class Orders extends Component {
 						<FaShoppingCart size={25} />
 					</div>
 
-					<div className="cart-address">
+					<div className="cart-address" style={{display:'none'}}>
 						<div className="cart-row">
 							<div>Indirizzo</div>
 							<input
@@ -128,16 +163,27 @@ class Orders extends Component {
 						</div>
 					</div>
 					<div className="cart-wrapper">
-						{state.order.foods.map((food) => {
+						{ordersTable.map((category) => {
 							return (
-								<div className="cart-food">
-									<div>
-										{food.quantity} x {food.name}
-									</div>
-									<div className="cart-food-buttons">
-										<FaMinusCircle onClick={() => this.changeQuantity(food.id, -1)}/>
-										<FaPlusCircle onClick={() => this.changeQuantity(food.id, 1)}/>
-									</div>
+								<div>
+									<div className="category-name">{category.categoryName}</div>
+									{category.foods.map((food) => {
+										return (
+											<div className="cart-food">
+												<div>
+													{food.quantity} x {food.name}
+												</div>
+												<div className="cart-food-buttons">
+													<FaMinusCircle
+														onClick={() => this.changeQuantity(food.id, -1)}
+													/>
+													<FaPlusCircle
+														onClick={() => this.changeQuantity(food.id, 1)}
+													/>
+												</div>
+											</div>
+										)
+									})}
 								</div>
 							)
 						})}
@@ -146,12 +192,14 @@ class Orders extends Component {
 						<div className="cart-price">
 							<div>
 								{state.order.foods
-									.reduce((acc, curr) => (acc += curr.price *curr.quantity), 0)
+									.reduce((acc, curr) => (acc += curr.price * curr.quantity), 0)
 									.toPrecision(2)}
 							</div>
 							€
 						</div>
-						<button className="order-btn">Ordina</button>
+						<button className="order-btn" onClick={this.order}>
+							Ordina
+						</button>
 					</div>
 				</div>
 			</div>

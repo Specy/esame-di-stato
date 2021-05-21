@@ -201,6 +201,7 @@ class RegisterRestaurant extends Component {
 							<div className="restaurant-form-row">
 								<div>Password</div>
 								<input
+									type='password'
 									value={state.info.password}
 									onChange={(e) =>
 										this.handleRestaurantForm("password", e.target.value)
@@ -218,7 +219,8 @@ class RegisterRestaurant extends Component {
 							</div>
 							<div className="restaurant-form-row">
 								<div>Descrizione</div>
-								<input
+								<textarea
+									className='editable-div'
 									value={state.info.description}
 									onChange={(e) =>
 										this.handleRestaurantForm("description", e.target.value)
@@ -354,7 +356,7 @@ function FoodInput(props) {
 	return (
 		<div className="food-inputs-wrapper">
 			<div className="food-input-row">
-				<div>Nome:</div>
+				<div>Nome</div>
 				<input
 					value={data.name}
 					placeholder="Nome pietanza"
@@ -364,7 +366,7 @@ function FoodInput(props) {
 				/>
 			</div>
 			<div className="food-input-row">
-				<div>Prezzo:</div>
+				<div>Prezzo</div>
 				<input
 					type="number"
 					value={data.price}
@@ -375,13 +377,14 @@ function FoodInput(props) {
 				/>
 			</div>
 			<div className="food-input-row">
-				<div>Descrizione:</div>
-				<input
+				<div>Descrizione</div>
+				<textarea
+					className='editable-div'
 					value={data.description}
-					placeholder="Descrizione pietanza"
 					onChange={(e) =>
 						functions.handleFood(data.id, e.target.value, "description")
 					}
+					
 				/>
 			</div>
 			<div className="food-input-row">

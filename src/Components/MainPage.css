@@ -20,7 +20,7 @@
     background-color: var(--dark-blue);
 }
 .login-input{
-    flex: 1;
+    width: 100%;
     padding: 0.4rem;
     
 }
@@ -260,10 +260,15 @@
 }
 @media  screen and (orientation:portrait) {
     .restaurant-floating-data{
-        width: 90vw;
+        width: 95vw;
     }
-    .login-input{
-        width: 60vw;
+    .restaurants-wrapper{
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (max-width:640px){
+    .restaurant-floating-data{
+        width: 95vw;
     }
     .restaurants-wrapper{
         grid-template-columns: 1fr;

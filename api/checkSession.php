@@ -19,7 +19,7 @@ error_reporting(0);
     session_start();
     $userId = $_SESSION['userId'];
     if($userId == null){
-    echo json_encode(true);
+        echo json_encode(true);
     }else{
         echo json_encode(true);
     }

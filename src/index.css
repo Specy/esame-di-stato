@@ -117,7 +117,7 @@ body, html{
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .navbar-wrapper{
   color: white;
@@ -334,7 +334,41 @@ a{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-@media  screen and (orientation:portrait) {
+
+@media  screen and (orientation:portrait){
+  .nav-open-side{
+    display: flex;
+  }
+  .left-page{
+    padding: 1rem;
+  }
+  .right-page{
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    padding-top: 5rem;
+    z-index: 5;
+    transform: translateX(100vw);
+    transition: all 0.3s;
+  }
+  .right-page-open{
+    transform: translateX(0);
+  }
+  .navbar-logo{
+    font-size: 1rem;
+  }
+  .navbar-input-wrapper{
+    margin-left: 0.5rem;
+  }
+  .navbar-wrapper{
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
+    top: 0.5rem;
+    left:0;
+  }
+}
+
+@media screen and (max-width:640px){
   .nav-open-side{
     display: flex;
   }

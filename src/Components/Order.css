@@ -171,3 +171,17 @@
         margin-left: 0;
     }
 }
+@media screen and (max-width:640px){
+    .orders-wrapper{
+        grid-template-columns: 1fr;
+    }
+    .cart-row input{
+        width: 40vw;
+    }
+    .order-foods-wrapper{
+        grid-template-columns: 1fr;
+    }
+    .order-category{
+        margin-left: 0;
+    }
+}

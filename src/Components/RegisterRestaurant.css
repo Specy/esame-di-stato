@@ -55,8 +55,7 @@
     cursor: pointer;
 }
 .food-input-row, .restaurant-form-row{
-    display: grid;
-    grid-template-columns: 1fr 4fr;
+    display: flex;
     align-items: center;
     font-size: 1rem;
     width: 100%;
@@ -67,15 +66,15 @@
     justify-content: flex-end;
 
 }
-.food-input-row input, .food-input-row select, .restaurant-form-row input{
+.food-input-row input, .food-input-row select, .restaurant-form-row input, .editable-div{
     padding:0.5rem;
     border-radius: 0.5rem;
-    width: 100%;
-    max-width: 60vw;
+    width: 70%;
+    min-width: 70%;
     margin-left: auto;
     box-shadow: 0 0 4px 0px rgb(0 0 10 / 25%);
+    background-color: white;
 }
-
 .category-inputs-wrapper, .add-category-inputs-wrapper{
     height: 6rem;
     width: 5rem;
@@ -106,5 +105,37 @@
 @media  screen and (orientation:portrait) {
     .restaurant-form, .food-inputs-wrapper, .add-food-inputs-wrapper{
         margin-left: 0;
+    }
+    .restaurant-form, .food-inputs-wrapper, .add-food-inputs-wrapper{
+        margin-left: 0;
+        
+    }
+    .food-input-row, .restaurant-form-row{
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .restaurant-form-row input, .restaurant-form-row div,
+     .food-input-row input, .food-input-row select,.food-input-row div {
+        margin: unset;
+        margin-top: 0.2rem;
+        width: 100%;
+    }
+}
+@media screen and (max-width:640px){
+    .restaurant-form, .food-inputs-wrapper, .add-food-inputs-wrapper{
+        margin-left: 0;
+        
+    }
+    .food-input-row, .restaurant-form-row{
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .restaurant-form-row input, .restaurant-form-row div,
+     .food-input-row input, .food-input-row select,.food-input-row div {
+        margin: unset;
+        margin-top: 0.2rem;
+        width: 100%;
     }
 }

@@ -52,7 +52,7 @@ class Orders extends Component {
 	order = async () => {
 		let data = this.state.order
 		data.restaurantId = Number(this.state.restaurant.id)
-		let response = await fetch('/api/placeOrder.php',{
+		let response = await fetch('/esame-di-stato/api/placeOrder.php',{
 			method:'POST',
 			body: JSON.stringify(this.state.order)
 		}).then(data => data.json())

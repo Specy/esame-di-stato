@@ -111,7 +111,7 @@ class RegisterRestaurant extends Component {
 			foods: menu.foods,
 			src: info.src
 		}
-		let response = await fetch("/api/registerRestaurant.php",{
+		let response = await fetch("/esame-di-stato/api/registerRestaurant.php",{
 			method:"POST",
 			body: JSON.stringify(dataToSend)
 		}).then(data => data.json())

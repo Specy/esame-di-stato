@@ -15,7 +15,7 @@ class MyOrders extends Component {
 		this.sync()
 	}
 	sync = async () => {
-		let response = await fetch("api/getOrders.php").then((data) => data.json())
+		let response = await fetch("/esame-di-stato/api/getOrders.php").then((data) => data.json())
 		console.log(response)
 		if (response.status === "error") {
 			return alert(`${response.status}! ${response.content}`)

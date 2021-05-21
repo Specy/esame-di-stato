@@ -50,14 +50,14 @@ class MainPage extends Component {
 	}
 
 	sync = async () =>{
-		let restaurants = await fetch('/api/getRestaurants.php').then(data => data.json())
+		let restaurants = await fetch('/esame-di-stato/api/getRestaurants.php').then(data => data.json())
 		restaurants = restaurants.map(restaurant => {
 			return new RestaurantPreviewCard(restaurant)
 		})
 		this.setState({
 			restaurants: restaurants
 		})
-		let validSession = await fetch('/api/checkSession.php').then(data => data.json())
+		let validSession = await fetch('/esame-di-stato/api/checkSession.php').then(data => data.json())
 		if(validSession){
 			this.setState({
 				user:{
@@ -80,14 +80,14 @@ class MainPage extends Component {
         })
     }
 	register = async () => {
-		let response = await fetch("/api/registerUser.php",{
+		let response = await fetch("/esame-di-stato/api/registerUser.php",{
 			method:"POST",
 			body:JSON.stringify(this.state.register)
 		}).then(data => data.json())
 		alert(`${response.status}! ${response.content}`)
 	}
 	login = async () => {
-		let response = await fetch("/api/loginUser.php",{
+		let response = await fetch("/esame-di-stato/api/loginUser.php",{
 			method:"POST",
 			body:JSON.stringify(this.state.login)
 		}).then(data => data.json())

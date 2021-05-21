@@ -1,7 +1,8 @@
 {
   "name": "esame-di-stato",
   "version": "0.1.0",
-  "proxy": "http://localhost:80/esame-di-stato",
+  "proxy": "http://localhost:80",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

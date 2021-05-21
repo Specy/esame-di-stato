@@ -3,7 +3,7 @@ class RestaurantPreviewCard{
     constructor(data){
         this.name = data.name || "Ristorante" + random()
         this.tags = data.tags?.split(",") || ["Pizza","Pub"]
-        this.src = "/api/files/"+data.src+'.jpeg' || "https://images.unsplash.com/photo-1594179047502-07fb8a5451f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
+        this.src = "/esame-di-stato/api/files/"+data.src+'.jpeg' || "https://images.unsplash.com/photo-1594179047502-07fb8a5451f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
         this.address = data.address || "Test address"
         this.description = data.description ||"Descrizione ristorante"
         this.menu = new Menu(data.foods ?{

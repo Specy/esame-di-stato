@@ -32,7 +32,7 @@ class RestaurantArea extends Component {
         })
     }
 	login = async () => {
-		let response = await fetch("api/getRestaurantOrders.php", {
+		let response = await fetch("/esame-di-stato/api/getRestaurantOrders.php", {
 			method: "POST",
 			body: JSON.stringify(this.state.credentials),
 		}).then((data) => data.json())

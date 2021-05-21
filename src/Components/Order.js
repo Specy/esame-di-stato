@@ -15,7 +15,8 @@ class Orders extends Component {
 		let time = new Date(new Date().getTime() + 3600000)
 		time = time.toTimeString().split(" ")[0].split(":")
 		time.splice(2, 1)
-		this.isPortrait = window.screen.width > window.screen.height
+		let bodySize = document.body.getBoundingClientRect()
+		this.isPortrait = bodySize.width > bodySize.height 
 		this.state = {
 			openSideMenu: this.isPortrait,
 			restaurant: {
@@ -55,7 +56,9 @@ class Orders extends Component {
 		let response = await fetch('/esame-di-stato/api/placeOrder.php',{
 			method:'POST',
 			body: JSON.stringify(this.state.order)
-		}).then(data => data.json())
+		}).then(data => data.text())
+		console.log(response)
+		response = JSON.parse(response)
 		alert(`${response.status}! ${response.content}`)
 	}
 	changeQuantity = (id, quantity) => {
@@ -104,7 +107,9 @@ class Orders extends Component {
 					/>
 					<div className="restaurant-image-wide" style={{ cursor: "default" }}>
 						<div className="restaurant-name">{state.restaurant.name}</div>
-						<img src={state.restaurant.src} />
+						<img src={state.restaurant.src} 
+													onError={(e) => e.target.src = 'https://cdn.discordapp.com/attachments/771432833034092554/845258746368360468/unknown.png'}
+						/>
 					</div>
 					<div className="restaurant-info">
 						<div className="row">

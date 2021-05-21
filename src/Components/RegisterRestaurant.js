@@ -6,7 +6,8 @@ import "./RegisterRestaurant.css"
 class RegisterRestaurant extends Component {
 	constructor(props) {
 		super(props)
-		this.isPortrait = window.screen.width > window.screen.height 
+		let bodySize = document.body.getBoundingClientRect()
+		this.isPortrait = bodySize.width > bodySize.height 
 		this.state = {
 			openSideMenu: this.isPortrait,
 			info: {
@@ -114,7 +115,9 @@ class RegisterRestaurant extends Component {
 		let response = await fetch("/esame-di-stato/api/registerRestaurant.php",{
 			method:"POST",
 			body: JSON.stringify(dataToSend)
-		}).then(data => data.json())
+		}).then(data => data.text())
+		console.log(response)
+		response = JSON.parse(response)
 		alert(`${response.status}! \n${response.content}`)
 	}
 	removeFood = (id) => {

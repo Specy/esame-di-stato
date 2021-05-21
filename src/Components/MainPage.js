@@ -17,7 +17,8 @@ import { Link } from "react-router-dom"
 class MainPage extends Component {
 	constructor(props) {
 		super(props)
-		this.isPortrait = window.screen.width > window.screen.height 
+		let bodySize = document.body.getBoundingClientRect()
+		this.isPortrait = bodySize.width > bodySize.height 
 		this.state = {
 			openSideMenu:this.isPortrait ,
 			user: {
@@ -83,14 +84,18 @@ class MainPage extends Component {
 		let response = await fetch("/esame-di-stato/api/registerUser.php",{
 			method:"POST",
 			body:JSON.stringify(this.state.register)
-		}).then(data => data.json())
+		}).then(data => data.text())
+		console.log(response)
+		response = JSON.parse(response)
 		alert(`${response.status}! ${response.content}`)
 	}
 	login = async () => {
 		let response = await fetch("/esame-di-stato/api/loginUser.php",{
 			method:"POST",
 			body:JSON.stringify(this.state.login)
-		}).then(data => data.json())
+		}).then(data => data.text())
+		console.log(response)
+		response = JSON.parse(response)
 		localStorage.setItem('name',response.content.name)
 		alert(`${response.status}! Loggato come: ${response.content.name}`)
 		this.setState({
@@ -143,7 +148,9 @@ class MainPage extends Component {
 					<div className={"restaurant-floating-data box-shadow "}>
 						<div className="floating-restaurant-title">
 							<div>{restaurantPreview.name}</div>
-							<img src={restaurantPreview.src} />
+							<img src={restaurantPreview.src} 
+							onError={(e) => e.target.src = 'https://cdn.discordapp.com/attachments/771432833034092554/845258746368360468/unknown.png'}
+							/>
 						</div>
 
 						<div className="floating-restaurant-address">

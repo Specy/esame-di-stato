@@ -5,7 +5,8 @@ import { IoMdRestaurant } from 'react-icons/io'
 class RestaurantArea extends Component {
 	constructor(props) {
 		super(props)
-		this.isPortrait = window.screen.width > window.screen.height 
+		let bodySize = document.body.getBoundingClientRect()
+		this.isPortrait = bodySize.width > bodySize.height 
 		this.state = {
 			openSideMenu: this.isPortrait,
 			user: {
@@ -35,7 +36,9 @@ class RestaurantArea extends Component {
 		let response = await fetch("/esame-di-stato/api/getRestaurantOrders.php", {
 			method: "POST",
 			body: JSON.stringify(this.state.credentials),
-		}).then((data) => data.json())
+		}).then(data => data.text())
+		console.log(response)
+		response = JSON.parse(response)
 		if (response.status !== "success") {
 			return alert(`${response.status}! ${response.content}`)
 		}
@@ -71,9 +74,11 @@ class RestaurantArea extends Component {
 						}
 					/>
 					<div className="left-page-padding">
+						<div className='big-text'>
+							Fai il login per vedere gli ordini
+						</div>
 						<div className="orders-wrapper">
 							{state.userOrders.map((user) => {
-								console.log(user)
 								return (
 									<div className="order">
 										<div className="medium-big-text">{user.name}</div>

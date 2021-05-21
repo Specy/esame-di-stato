@@ -11,7 +11,9 @@ class RestaurantPreview extends Component{
     render(){
         const {name, src,tags} = this.props.data
         return <div className="restaurant-preview" onClick={() =>this.props.click(this.props.data)}>
-            <img src={src}/>
+            <img src={src}
+            							onError={(e) => e.target.src = 'https://cdn.discordapp.com/attachments/771432833034092554/845258746368360468/unknown.png'}
+            />
             <div className="restaurant-name">
                 {name}
             </div>

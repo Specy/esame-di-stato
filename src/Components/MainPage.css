@@ -105,6 +105,7 @@
     border-radius: 999rem;
     color: white;
     padding: 0.5rem 0.8rem;
+    height: fit-content;
 }
 .menu-row-category{
     display: flex;

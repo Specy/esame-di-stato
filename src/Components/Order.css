@@ -157,14 +157,6 @@
     grid-template-columns: 1fr;
     gap: 0.3rem;
 }
-.floating-restaurant-login{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 @media  screen and (orientation:portrait) {
     .orders-wrapper{
         grid-template-columns: 1fr;

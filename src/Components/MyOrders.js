@@ -4,7 +4,8 @@ import NavBar from "./NavBar"
 class MyOrders extends Component {
 	constructor(props) {
 		super(props)
-		this.isPortrait = window.screen.width > window.screen.height
+		let bodySize = document.body.getBoundingClientRect()
+		this.isPortrait = bodySize.width > bodySize.height 
 		let storedName = localStorage.getItem("name")
 		storedName = storedName === null ? "Non sei loggato" : storedName
 		this.state = {
@@ -15,12 +16,17 @@ class MyOrders extends Component {
 		this.sync()
 	}
 	sync = async () => {
-		let response = await fetch("/esame-di-stato/api/getOrders.php").then((data) => data.json())
+		let response = await fetch("/esame-di-stato/api/getOrders.php")
+		.then(data => data.text())
 		console.log(response)
+		response = JSON.parse(response)
 		if (response.status === "error") {
 			return alert(`${response.status}! ${response.content}`)
 		}
+		//raggruppa l'array in un oggetto utilizzando la chiave restaurantId
 		let grouped = groupBy(response.content, "restaurantId")
+		//prende tutte le chiavi nell'oggetto e le converte in un singolo
+		//array di oggetti, contenenti tutti gli ordini fatti in un ristorante
 		let data = Object.entries(grouped).map(([key, value]) => {
 			return {
 				name: grouped[key][0].restaurantName,

@@ -18,7 +18,7 @@ error_reporting(0);
     $jsonData = json_decode(file_get_contents('php://input'));
     $mysqli = mysqli_connect("localhost", "root", "", "my_specy");
 
-    $result = $mysqli->query('SELECT `nome`,`descrizione`,`tags`,`src`,`IDRistorante` FROM ristoranti');
+    $result = $mysqli->query('SELECT `nome`,`descrizione`,`tags`,`src`,`IDRistorante`,`via` FROM ristoranti');
     $restaurants = array();
     while ($row = $result->fetch_row()) {
         $restaurantObject = (object)[
@@ -27,6 +27,7 @@ error_reporting(0);
             'tags' => $row[2],
             'src' => $row[3],
             'id' => $row[4],
+            'address' => $row[5],
             'categories' => array(),
             'foods' => array()
         ];

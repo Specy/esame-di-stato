@@ -47,7 +47,7 @@ class NavBar extends Component {
 								)}
 								<div>Manduca</div>
 							</div>
-							{props.hidden !== true && (
+							{!props.hidden && (
 								<div className="navbar-input-wrapper">
 									<input
 										value={this.state.searchValue}

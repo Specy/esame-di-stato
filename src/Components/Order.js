@@ -56,9 +56,7 @@ class Orders extends Component {
 		let response = await fetch('/esame-di-stato/api/placeOrder.php',{
 			method:'POST',
 			body: JSON.stringify(this.state.order)
-		}).then(data => data.text())
-		console.log(response)
-		response = JSON.parse(response)
+		}).then(data => data.json())
 		alert(`${response.status}! ${response.content}`)
 	}
 	changeQuantity = (id, quantity) => {

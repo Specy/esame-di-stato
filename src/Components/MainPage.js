@@ -84,18 +84,14 @@ class MainPage extends Component {
 		let response = await fetch("/esame-di-stato/api/registerUser.php",{
 			method:"POST",
 			body:JSON.stringify(this.state.register)
-		}).then(data => data.text())
-		console.log(response)
-		response = JSON.parse(response)
+		}).then(data => data.json())
 		alert(`${response.status}! ${response.content}`)
 	}
 	login = async () => {
 		let response = await fetch("/esame-di-stato/api/loginUser.php",{
 			method:"POST",
 			body:JSON.stringify(this.state.login)
-		}).then(data => data.text())
-		console.log(response)
-		response = JSON.parse(response)
+		}).then(data => data.json())
 		localStorage.setItem('name',response.content.name)
 		alert(`${response.status}! Loggato come: ${response.content.name}`)
 		this.setState({
@@ -120,6 +116,7 @@ class MainPage extends Component {
 		})
 	}
 	selectRestaurantPreview = (restaurant) => {
+		console.log(restaurant)
 		this.setState({
 			restaurantPreview: {
 				visible: true,

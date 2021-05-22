@@ -115,9 +115,7 @@ class RegisterRestaurant extends Component {
 		let response = await fetch("/esame-di-stato/api/registerRestaurant.php",{
 			method:"POST",
 			body: JSON.stringify(dataToSend)
-		}).then(data => data.text())
-		console.log(response)
-		response = JSON.parse(response)
+		}).then(data => data.json())
 		alert(`${response.status}! \n${response.content}`)
 	}
 	removeFood = (id) => {

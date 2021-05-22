@@ -168,7 +168,6 @@ body, html{
 }
 
 .bottom-navbar{
-  display: flex;
   width: 100%;
   margin-top: 0.3rem;
   border-radius: 1.25rem;

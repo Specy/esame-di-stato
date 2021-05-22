@@ -36,9 +36,7 @@ class RestaurantArea extends Component {
 		let response = await fetch("/esame-di-stato/api/getRestaurantOrders.php", {
 			method: "POST",
 			body: JSON.stringify(this.state.credentials),
-		}).then(data => data.text())
-		console.log(response)
-		response = JSON.parse(response)
+		}).then(data => data.json())
 		if (response.status !== "success") {
 			return alert(`${response.status}! ${response.content}`)
 		}
